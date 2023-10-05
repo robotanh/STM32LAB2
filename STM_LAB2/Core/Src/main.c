@@ -130,7 +130,7 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
   }
-  set_Timer1(100);
+
   /* USER CODE END 3 */
 }
 
