@@ -98,7 +98,7 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  set_Timer1(10);
+  set_Timer1(2);
   int state =0;
   int led_buffer [4] = {1 , 2 , 3 , 4};
   void update7SEG ( int index ) {
@@ -132,7 +132,7 @@ int main(void)
 			  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_11, 1);
 			  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_10, 0);
 			  state =1;
-			  set_Timer1(10);
+			  set_Timer1(25);
 			  }
 			  break;
 		  case 1:
@@ -145,8 +145,9 @@ int main(void)
 				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_11, 1);
 				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_10, 0);
 			  state =2;
-			  set_Timer1(10);
+			  set_Timer1(25);
 			  }
+			  break;
 		  case 2:
 			  if(timer1_flag ==1)
 			  {
@@ -155,9 +156,9 @@ int main(void)
 				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, 1);
 				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, 0);
 				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_11, 1);
-				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_10, 0);
+				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_10, 1);
 				  state =3;
-				  set_Timer1(10);
+				  set_Timer1(25);
 			  }
 			  break;
 		  case 3:
@@ -168,9 +169,9 @@ int main(void)
 				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, 1);
 				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, 1);
 				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_11, 0);
-				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_10, 0);
+				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_10, 1);
 				  state =0;
-				  set_Timer1(10);
+				  set_Timer1(25);
 			  }
 			  break;
 
