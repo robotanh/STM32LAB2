@@ -22,6 +22,8 @@
 #include "software_timer.h"
 #include "Led7Segment.h"
 
+
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -96,15 +98,31 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  set_Timer1(100);
+  set_Timer1(10);
+  int state =0;
   while (1)
   {
     /* USER CODE END WHILE */
-	  if(timer1_flag == 1)
+	  if(timer1_flag ==1)
 	  {
-		  set_Timer1(200);
-		  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+		  switch (state){
+		  case 0:
+			  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, 0);
+			  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, 1);
+			  display7SEG(1, 1);
+			  state =1;
+			  break;
+		  case 1:
+			  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, 1);
+			  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, 0);
+			  state =0;
+			  display7SEG(1, 2);
+			  break;
+
+		  }
+
 	  }
+	  set_Timer1(10);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -242,6 +260,8 @@ static void MX_GPIO_Init(void)
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
 	timerRun();
+
+
 }
 /* USER CODE END 4 */
 
