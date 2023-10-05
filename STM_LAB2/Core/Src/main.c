@@ -100,6 +100,24 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   set_Timer1(10);
   int state =0;
+  int led_buffer [4] = {1 , 2 , 3 , 4};
+  void update7SEG ( int index ) {
+	  	  switch (index){
+	  	  case 0:
+	  		  display7SEG(1,led_buffer[0]);
+	  		  break;
+	  	  case 1:
+	  		  display7SEG(1,led_buffer[1]);
+	  		  break;
+	  	  case 2:
+	  		  display7SEG(1,led_buffer[2]);
+	  		  break;
+	  	  case 3:
+	  		  display7SEG(1,led_buffer[3]);
+	  		  break;
+	  	  }
+
+  }
   while (1)
   {
     /* USER CODE END WHILE */
@@ -107,7 +125,7 @@ int main(void)
 		  case 0:
 			  if(timer1_flag == 1)
 			  {
-				  display7SEG(1, 1);
+				  update7SEG(0);
 			  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, 0);
 			  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, 1);
 			  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, 1);
@@ -120,7 +138,7 @@ int main(void)
 		  case 1:
 			  if(timer1_flag==1)
 			  {
-				 display7SEG(1, 2);
+				  update7SEG(1);
 				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, 1);
 				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, 0);
 				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, 1);
@@ -132,7 +150,7 @@ int main(void)
 		  case 2:
 			  if(timer1_flag ==1)
 			  {
-				  display7SEG(1, 3);
+				  update7SEG(2);
 				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, 1);
 				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, 1);
 				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, 0);
@@ -145,7 +163,7 @@ int main(void)
 		  case 3:
 			  if(timer1_flag ==1)
 			  {
-				  display7SEG(1, 0);
+				  update7SEG(3);
 				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, 1);
 				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, 1);
 				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, 1);
