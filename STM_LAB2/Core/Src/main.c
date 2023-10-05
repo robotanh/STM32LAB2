@@ -103,28 +103,34 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-	  if(timer1_flag ==1)
-	  {
 		  switch (state){
 		  case 0:
+			  if(timer1_flag == 1)
+			  {
+				  display7SEG(1, 1);
 			  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, 0);
 			  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, 1);
-			  display7SEG(1, 1);
 			  state =1;
+			  set_Timer1(10);
+			  }
 			  break;
 		  case 1:
+			  if(timer1_flag==1)
+			  {
+				 display7SEG(1, 2);
 			  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, 1);
 			  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, 0);
 			  state =0;
-			  display7SEG(1, 2);
+			  set_Timer1(10);
+			  }
 			  break;
 
 		  }
 
-	  }
-	  set_Timer1(10);
+
     /* USER CODE BEGIN 3 */
   }
+  set_Timer1(100);
   /* USER CODE END 3 */
 }
 
