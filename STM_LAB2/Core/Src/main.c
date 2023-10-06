@@ -99,10 +99,12 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   set_Timer1(2);
+  set_Timer2(2);
+  set_Timer3(2);
   int state =0;
   int led_buffer [4] = {1 , 2 , 3 , 4};
   int hour = 15 , minute = 8 , second = 50;
-  int time_lenght = 100;
+  int time_lenght = 500;
 
   void update7SEG ( int index ) {
 	  	  switch (index){
@@ -136,7 +138,6 @@ int main(void)
   	  			  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, 1);
   	  			  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, 1);
   	  			  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_11, 1);
-  	  			  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_10, 0);
   	  			  state =1;
   	  			  set_Timer1(time_lenght/40);
   	  			  }
@@ -149,7 +150,6 @@ int main(void)
   	  				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, 0);
   	  				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, 1);
   	  				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_11, 1);
-  	  				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_10, 0);
   	  			  state =2;
   	  			  set_Timer1(time_lenght/40);
   	  			  }
@@ -162,7 +162,6 @@ int main(void)
   	  				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, 1);
   	  				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, 0);
   	  				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_11, 1);
-  	  				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_10, 1);
   	  				  state =3;
   	  				  set_Timer1(time_lenght/40);
   	  			  }
@@ -175,7 +174,6 @@ int main(void)
   	  				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, 1);
   	  				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, 1);
   	  				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_11, 0);
-  	  				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_10, 1);
   	  				  state =0;
   	  				  set_Timer1(time_lenght/40);
   	  			  }
@@ -187,7 +185,8 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-		  second++;
+		  if(timer2_flag==1){
+	  	  second++;
 		  if(second>=60)
 		  {
 			  second =0;
@@ -202,8 +201,15 @@ int main(void)
 		  {
 			  hour =0;
 		  }
+
+		  set_Timer2(time_lenght/10);
+		  }
+		  if(timer3_flag==1)
+		  {
+			  HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_10);
+			  set_Timer3(time_lenght/20);
+		  }
 		  updateClockBuffer();
-		  HAL_Delay(time_lenght);
 
     /* USER CODE BEGIN 3 */
 
