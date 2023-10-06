@@ -102,13 +102,7 @@ int main(void)
   int state =0;
   int led_buffer [4] = {1 , 2 , 3 , 4};
   int hour = 15 , minute = 8 , second = 50;
-  void updateClockBuffer ()
-  {
-	  led_buffer[0]=hour/10;
-	  led_buffer[1]=hour%10;
-	  led_buffer[2]=minute/10;
-	  led_buffer[3]=minute%10;
-  }
+  int time_lenght = 100;
 
   void update7SEG ( int index ) {
 	  	  switch (index){
@@ -127,6 +121,69 @@ int main(void)
 	  	  }
 
   }
+  void updateClockBuffer ()
+    {
+  	  led_buffer[0]=hour/10;
+  	  led_buffer[1]=hour%10;
+  	  led_buffer[2]=minute/10;
+  	  led_buffer[3]=minute%10;
+  	  switch (state){
+  	  		  case 0:
+  	  			  if(timer1_flag == 1)
+  	  			  {
+  	  				  update7SEG(0);
+  	  			  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, 0);
+  	  			  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, 1);
+  	  			  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, 1);
+  	  			  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_11, 1);
+  	  			  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_10, 0);
+  	  			  state =1;
+  	  			  set_Timer1(time_lenght/40);
+  	  			  }
+  	  			  break;
+  	  		  case 1:
+  	  			  if(timer1_flag==1)
+  	  			  {
+  	  				  update7SEG(1);
+  	  				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, 1);
+  	  				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, 0);
+  	  				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, 1);
+  	  				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_11, 1);
+  	  				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_10, 0);
+  	  			  state =2;
+  	  			  set_Timer1(time_lenght/40);
+  	  			  }
+  	  			  break;
+  	  		  case 2:
+  	  			  if(timer1_flag ==1)
+  	  			  {
+  	  				  update7SEG(2);
+  	  				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, 1);
+  	  				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, 1);
+  	  				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, 0);
+  	  				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_11, 1);
+  	  				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_10, 1);
+  	  				  state =3;
+  	  				  set_Timer1(time_lenght/40);
+  	  			  }
+  	  			  break;
+  	  		  case 3:
+  	  			  if(timer1_flag ==1)
+  	  			  {
+  	  				  update7SEG(3);
+  	  				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, 1);
+  	  				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, 1);
+  	  				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, 1);
+  	  				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_11, 0);
+  	  				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_10, 1);
+  	  				  state =0;
+  	  				  set_Timer1(time_lenght/40);
+  	  			  }
+  	  			  break;
+
+  	  		  }
+    }
+
   while (1)
   {
     /* USER CODE END WHILE */
@@ -146,7 +203,7 @@ int main(void)
 			  hour =0;
 		  }
 		  updateClockBuffer();
-		  HAL_Delay(1000);
+		  HAL_Delay(time_lenght);
 
     /* USER CODE BEGIN 3 */
 
