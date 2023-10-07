@@ -27,23 +27,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   ALLOC
  11 .ARM.attributes 00000029  00000000  00000000  0002000c  2**0
                   CONTENTS, READONLY
- 12 .debug_info   000086ba  00000000  00000000  00020035  2**0
+ 12 .debug_info   0000872b  00000000  00000000  00020035  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_abbrev 00001614  00000000  00000000  000286ef  2**0
+ 13 .debug_abbrev 00001630  00000000  00000000  00028760  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_aranges 00000980  00000000  00000000  00029d08  2**3
+ 14 .debug_aranges 00000988  00000000  00000000  00029d90  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_ranges 000008c8  00000000  00000000  0002a688  2**3
+ 15 .debug_ranges 000008d0  00000000  00000000  0002a718  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_macro  00016211  00000000  00000000  0002af50  2**0
+ 16 .debug_macro  00016211  00000000  00000000  0002afe8  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   000095f6  00000000  00000000  00041161  2**0
+ 17 .debug_line   00009610  00000000  00000000  000411f9  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    00081d8b  00000000  00000000  0004a757  2**0
+ 18 .debug_str    00081dc9  00000000  00000000  0004a809  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000053  00000000  00000000  000cc4e2  2**0
+ 19 .comment      00000053  00000000  00000000  000cc5d2  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  000026e8  00000000  00000000  000cc538  2**2
+ 20 .debug_frame  00002710  00000000  00000000  000cc628  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -77,10 +77,10 @@ Disassembly of section .text:
  8000148:	08002324 	.word	0x08002324
 
 0800014c <display7SEG>:
-#ifndef INC_LED7SEGMENT_H_
-#define INC_LED7SEGMENT_H_
+			break;
 
-#include "main.h"
+	}
+}
 void display7SEG (int flag,int counter)
 {	if(flag ==0)
  800014c:	b580      	push	{r7, lr}
@@ -558,7 +558,7 @@ else if(flag ==1)
  8000564:	40010800 	.word	0x40010800
  8000568:	40010c00 	.word	0x40010c00
 
-0800056c <update7SEG.5980>:
+0800056c <update7SEG.5996>:
   int state =0;
   int led_buffer [4] = {1 , 2 , 3 , 4};
   int hour = 15 , minute = 8 , second = 50;
@@ -573,8 +573,8 @@ else if(flag ==1)
  8000576:	f8c7 c000 	str.w	ip, [r7]
  800057a:	687a      	ldr	r2, [r7, #4]
  800057c:	2a03      	cmp	r2, #3
- 800057e:	d823      	bhi.n	80005c8 <update7SEG.5980+0x5c>
- 8000580:	a101      	add	r1, pc, #4	; (adr r1, 8000588 <update7SEG.5980+0x1c>)
+ 800057e:	d823      	bhi.n	80005c8 <update7SEG.5996+0x5c>
+ 8000580:	a101      	add	r1, pc, #4	; (adr r1, 8000588 <update7SEG.5996+0x1c>)
  8000582:	f851 f022 	ldr.w	pc, [r1, r2, lsl #2]
  8000586:	bf00      	nop
  8000588:	08000599 	.word	0x08000599
@@ -589,7 +589,7 @@ else if(flag ==1)
  800059c:	2001      	movs	r0, #1
  800059e:	f7ff fdd5 	bl	800014c <display7SEG>
 	  		  break;
- 80005a2:	e011      	b.n	80005c8 <update7SEG.5980+0x5c>
+ 80005a2:	e011      	b.n	80005c8 <update7SEG.5996+0x5c>
 	  	  case 1:
 	  		  display7SEG(1,led_buffer[1]);
  80005a4:	695b      	ldr	r3, [r3, #20]
@@ -597,7 +597,7 @@ else if(flag ==1)
  80005a8:	2001      	movs	r0, #1
  80005aa:	f7ff fdcf 	bl	800014c <display7SEG>
 	  		  break;
- 80005ae:	e00b      	b.n	80005c8 <update7SEG.5980+0x5c>
+ 80005ae:	e00b      	b.n	80005c8 <update7SEG.5996+0x5c>
 	  	  case 2:
 	  		  display7SEG(1,led_buffer[2]);
  80005b0:	699b      	ldr	r3, [r3, #24]
@@ -605,7 +605,7 @@ else if(flag ==1)
  80005b4:	2001      	movs	r0, #1
  80005b6:	f7ff fdc9 	bl	800014c <display7SEG>
 	  		  break;
- 80005ba:	e005      	b.n	80005c8 <update7SEG.5980+0x5c>
+ 80005ba:	e005      	b.n	80005c8 <update7SEG.5996+0x5c>
 	  	  case 3:
 	  		  display7SEG(1,led_buffer[3]);
  80005bc:	69db      	ldr	r3, [r3, #28]
@@ -751,7 +751,7 @@ int main(void)
 		  updateClockBuffer();
  8000698:	463b      	mov	r3, r7
  800069a:	469c      	mov	ip, r3
- 800069c:	f000 f80e 	bl	80006bc <updateClockBuffer.5987>
+ 800069c:	f000 f80e 	bl	80006bc <updateClockBuffer.6003>
 		  if(timer2_flag==1){
  80006a0:	e7c1      	b.n	8000626 <main+0x56>
  80006a2:	bf00      	nop
@@ -762,7 +762,7 @@ int main(void)
  80006b4:	20000038 	.word	0x20000038
  80006b8:	40010c00 	.word	0x40010c00
 
-080006bc <updateClockBuffer.5987>:
+080006bc <updateClockBuffer.6003>:
     {
  80006bc:	b590      	push	{r4, r7, lr}
  80006be:	b083      	sub	sp, #12
@@ -771,7 +771,7 @@ int main(void)
  80006c4:	f8c7 c004 	str.w	ip, [r7, #4]
   	  led_buffer[0]=hour/10;
  80006c8:	68e3      	ldr	r3, [r4, #12]
- 80006ca:	4a7d      	ldr	r2, [pc, #500]	; (80008c0 <updateClockBuffer.5987+0x204>)
+ 80006ca:	4a7d      	ldr	r2, [pc, #500]	; (80008c0 <updateClockBuffer.6003+0x204>)
  80006cc:	fb82 1203 	smull	r1, r2, r2, r3
  80006d0:	1092      	asrs	r2, r2, #2
  80006d2:	17db      	asrs	r3, r3, #31
@@ -779,7 +779,7 @@ int main(void)
  80006d6:	6123      	str	r3, [r4, #16]
   	  led_buffer[1]=hour%10;
  80006d8:	68e1      	ldr	r1, [r4, #12]
- 80006da:	4b79      	ldr	r3, [pc, #484]	; (80008c0 <updateClockBuffer.5987+0x204>)
+ 80006da:	4b79      	ldr	r3, [pc, #484]	; (80008c0 <updateClockBuffer.6003+0x204>)
  80006dc:	fb83 2301 	smull	r2, r3, r3, r1
  80006e0:	109a      	asrs	r2, r3, #2
  80006e2:	17cb      	asrs	r3, r1, #31
@@ -792,7 +792,7 @@ int main(void)
  80006f0:	6162      	str	r2, [r4, #20]
   	  led_buffer[2]=minute/10;
  80006f2:	68a3      	ldr	r3, [r4, #8]
- 80006f4:	4a72      	ldr	r2, [pc, #456]	; (80008c0 <updateClockBuffer.5987+0x204>)
+ 80006f4:	4a72      	ldr	r2, [pc, #456]	; (80008c0 <updateClockBuffer.6003+0x204>)
  80006f6:	fb82 1203 	smull	r1, r2, r2, r3
  80006fa:	1092      	asrs	r2, r2, #2
  80006fc:	17db      	asrs	r3, r3, #31
@@ -800,7 +800,7 @@ int main(void)
  8000700:	61a3      	str	r3, [r4, #24]
   	  led_buffer[3]=minute%10;
  8000702:	68a1      	ldr	r1, [r4, #8]
- 8000704:	4b6e      	ldr	r3, [pc, #440]	; (80008c0 <updateClockBuffer.5987+0x204>)
+ 8000704:	4b6e      	ldr	r3, [pc, #440]	; (80008c0 <updateClockBuffer.6003+0x204>)
  8000706:	fb83 2301 	smull	r2, r3, r3, r1
  800070a:	109a      	asrs	r2, r3, #2
  800070c:	17cb      	asrs	r3, r1, #31
@@ -814,8 +814,8 @@ int main(void)
   	  switch (state){
  800071c:	6863      	ldr	r3, [r4, #4]
  800071e:	2b03      	cmp	r3, #3
- 8000720:	f200 80c9 	bhi.w	80008b6 <updateClockBuffer.5987+0x1fa>
- 8000724:	a201      	add	r2, pc, #4	; (adr r2, 800072c <updateClockBuffer.5987+0x70>)
+ 8000720:	f200 80c9 	bhi.w	80008b6 <updateClockBuffer.6003+0x1fa>
+ 8000724:	a201      	add	r2, pc, #4	; (adr r2, 800072c <updateClockBuffer.6003+0x70>)
  8000726:	f852 f023 	ldr.w	pc, [r2, r3, lsl #2]
  800072a:	bf00      	nop
  800072c:	0800073d 	.word	0x0800073d
@@ -823,40 +823,40 @@ int main(void)
  8000734:	080007f5 	.word	0x080007f5
  8000738:	0800084f 	.word	0x0800084f
   	  			  if(timer1_flag == 1)
- 800073c:	4b61      	ldr	r3, [pc, #388]	; (80008c4 <updateClockBuffer.5987+0x208>)
+ 800073c:	4b61      	ldr	r3, [pc, #388]	; (80008c4 <updateClockBuffer.6003+0x208>)
  800073e:	681b      	ldr	r3, [r3, #0]
  8000740:	2b01      	cmp	r3, #1
- 8000742:	f040 80b1 	bne.w	80008a8 <updateClockBuffer.5987+0x1ec>
+ 8000742:	f040 80b1 	bne.w	80008a8 <updateClockBuffer.6003+0x1ec>
   	  				  update7SEG(0);
  8000746:	46a4      	mov	ip, r4
  8000748:	2000      	movs	r0, #0
- 800074a:	f7ff ff0f 	bl	800056c <update7SEG.5980>
+ 800074a:	f7ff ff0f 	bl	800056c <update7SEG.5996>
   	  			  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, 0);
  800074e:	2200      	movs	r2, #0
  8000750:	f44f 5100 	mov.w	r1, #8192	; 0x2000
- 8000754:	485c      	ldr	r0, [pc, #368]	; (80008c8 <updateClockBuffer.5987+0x20c>)
+ 8000754:	485c      	ldr	r0, [pc, #368]	; (80008c8 <updateClockBuffer.6003+0x20c>)
  8000756:	f000 fdc3 	bl	80012e0 <HAL_GPIO_WritePin>
   	  			  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, 1);
  800075a:	2201      	movs	r2, #1
  800075c:	f44f 4180 	mov.w	r1, #16384	; 0x4000
- 8000760:	4859      	ldr	r0, [pc, #356]	; (80008c8 <updateClockBuffer.5987+0x20c>)
+ 8000760:	4859      	ldr	r0, [pc, #356]	; (80008c8 <updateClockBuffer.6003+0x20c>)
  8000762:	f000 fdbd 	bl	80012e0 <HAL_GPIO_WritePin>
   	  			  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, 1);
  8000766:	2201      	movs	r2, #1
  8000768:	f44f 5180 	mov.w	r1, #4096	; 0x1000
- 800076c:	4856      	ldr	r0, [pc, #344]	; (80008c8 <updateClockBuffer.5987+0x20c>)
+ 800076c:	4856      	ldr	r0, [pc, #344]	; (80008c8 <updateClockBuffer.6003+0x20c>)
  800076e:	f000 fdb7 	bl	80012e0 <HAL_GPIO_WritePin>
   	  			  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_11, 1);
  8000772:	2201      	movs	r2, #1
  8000774:	f44f 6100 	mov.w	r1, #2048	; 0x800
- 8000778:	4853      	ldr	r0, [pc, #332]	; (80008c8 <updateClockBuffer.5987+0x20c>)
+ 8000778:	4853      	ldr	r0, [pc, #332]	; (80008c8 <updateClockBuffer.6003+0x20c>)
  800077a:	f000 fdb1 	bl	80012e0 <HAL_GPIO_WritePin>
   	  			  state =1;
  800077e:	2301      	movs	r3, #1
  8000780:	6063      	str	r3, [r4, #4]
   	  			  set_Timer1(time_lenght/40);
  8000782:	6823      	ldr	r3, [r4, #0]
- 8000784:	4a4e      	ldr	r2, [pc, #312]	; (80008c0 <updateClockBuffer.5987+0x204>)
+ 8000784:	4a4e      	ldr	r2, [pc, #312]	; (80008c0 <updateClockBuffer.6003+0x204>)
  8000786:	fb82 1203 	smull	r1, r2, r2, r3
  800078a:	1112      	asrs	r2, r2, #4
  800078c:	17db      	asrs	r3, r3, #31
@@ -864,42 +864,42 @@ int main(void)
  8000790:	4618      	mov	r0, r3
  8000792:	f000 f989 	bl	8000aa8 <set_Timer1>
   	  			  break;
- 8000796:	e087      	b.n	80008a8 <updateClockBuffer.5987+0x1ec>
+ 8000796:	e087      	b.n	80008a8 <updateClockBuffer.6003+0x1ec>
   	  			  if(timer1_flag==1)
- 8000798:	4b4a      	ldr	r3, [pc, #296]	; (80008c4 <updateClockBuffer.5987+0x208>)
+ 8000798:	4b4a      	ldr	r3, [pc, #296]	; (80008c4 <updateClockBuffer.6003+0x208>)
  800079a:	681b      	ldr	r3, [r3, #0]
  800079c:	2b01      	cmp	r3, #1
- 800079e:	f040 8085 	bne.w	80008ac <updateClockBuffer.5987+0x1f0>
+ 800079e:	f040 8085 	bne.w	80008ac <updateClockBuffer.6003+0x1f0>
   	  				  update7SEG(1);
  80007a2:	46a4      	mov	ip, r4
  80007a4:	2001      	movs	r0, #1
- 80007a6:	f7ff fee1 	bl	800056c <update7SEG.5980>
+ 80007a6:	f7ff fee1 	bl	800056c <update7SEG.5996>
   	  				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, 1);
  80007aa:	2201      	movs	r2, #1
  80007ac:	f44f 5100 	mov.w	r1, #8192	; 0x2000
- 80007b0:	4845      	ldr	r0, [pc, #276]	; (80008c8 <updateClockBuffer.5987+0x20c>)
+ 80007b0:	4845      	ldr	r0, [pc, #276]	; (80008c8 <updateClockBuffer.6003+0x20c>)
  80007b2:	f000 fd95 	bl	80012e0 <HAL_GPIO_WritePin>
   	  				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, 0);
  80007b6:	2200      	movs	r2, #0
  80007b8:	f44f 4180 	mov.w	r1, #16384	; 0x4000
- 80007bc:	4842      	ldr	r0, [pc, #264]	; (80008c8 <updateClockBuffer.5987+0x20c>)
+ 80007bc:	4842      	ldr	r0, [pc, #264]	; (80008c8 <updateClockBuffer.6003+0x20c>)
  80007be:	f000 fd8f 	bl	80012e0 <HAL_GPIO_WritePin>
   	  				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, 1);
  80007c2:	2201      	movs	r2, #1
  80007c4:	f44f 5180 	mov.w	r1, #4096	; 0x1000
- 80007c8:	483f      	ldr	r0, [pc, #252]	; (80008c8 <updateClockBuffer.5987+0x20c>)
+ 80007c8:	483f      	ldr	r0, [pc, #252]	; (80008c8 <updateClockBuffer.6003+0x20c>)
  80007ca:	f000 fd89 	bl	80012e0 <HAL_GPIO_WritePin>
   	  				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_11, 1);
  80007ce:	2201      	movs	r2, #1
  80007d0:	f44f 6100 	mov.w	r1, #2048	; 0x800
- 80007d4:	483c      	ldr	r0, [pc, #240]	; (80008c8 <updateClockBuffer.5987+0x20c>)
+ 80007d4:	483c      	ldr	r0, [pc, #240]	; (80008c8 <updateClockBuffer.6003+0x20c>)
  80007d6:	f000 fd83 	bl	80012e0 <HAL_GPIO_WritePin>
   	  			  state =2;
  80007da:	2302      	movs	r3, #2
  80007dc:	6063      	str	r3, [r4, #4]
   	  			  set_Timer1(time_lenght/40);
  80007de:	6823      	ldr	r3, [r4, #0]
- 80007e0:	4a37      	ldr	r2, [pc, #220]	; (80008c0 <updateClockBuffer.5987+0x204>)
+ 80007e0:	4a37      	ldr	r2, [pc, #220]	; (80008c0 <updateClockBuffer.6003+0x204>)
  80007e2:	fb82 1203 	smull	r1, r2, r2, r3
  80007e6:	1112      	asrs	r2, r2, #4
  80007e8:	17db      	asrs	r3, r3, #31
@@ -907,42 +907,42 @@ int main(void)
  80007ec:	4618      	mov	r0, r3
  80007ee:	f000 f95b 	bl	8000aa8 <set_Timer1>
   	  			  break;
- 80007f2:	e05b      	b.n	80008ac <updateClockBuffer.5987+0x1f0>
+ 80007f2:	e05b      	b.n	80008ac <updateClockBuffer.6003+0x1f0>
   	  			  if(timer1_flag ==1)
- 80007f4:	4b33      	ldr	r3, [pc, #204]	; (80008c4 <updateClockBuffer.5987+0x208>)
+ 80007f4:	4b33      	ldr	r3, [pc, #204]	; (80008c4 <updateClockBuffer.6003+0x208>)
  80007f6:	681b      	ldr	r3, [r3, #0]
  80007f8:	2b01      	cmp	r3, #1
- 80007fa:	d159      	bne.n	80008b0 <updateClockBuffer.5987+0x1f4>
+ 80007fa:	d159      	bne.n	80008b0 <updateClockBuffer.6003+0x1f4>
   	  				  update7SEG(2);
  80007fc:	46a4      	mov	ip, r4
  80007fe:	2002      	movs	r0, #2
- 8000800:	f7ff feb4 	bl	800056c <update7SEG.5980>
+ 8000800:	f7ff feb4 	bl	800056c <update7SEG.5996>
   	  				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, 1);
  8000804:	2201      	movs	r2, #1
  8000806:	f44f 5100 	mov.w	r1, #8192	; 0x2000
- 800080a:	482f      	ldr	r0, [pc, #188]	; (80008c8 <updateClockBuffer.5987+0x20c>)
+ 800080a:	482f      	ldr	r0, [pc, #188]	; (80008c8 <updateClockBuffer.6003+0x20c>)
  800080c:	f000 fd68 	bl	80012e0 <HAL_GPIO_WritePin>
   	  				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, 1);
  8000810:	2201      	movs	r2, #1
  8000812:	f44f 4180 	mov.w	r1, #16384	; 0x4000
- 8000816:	482c      	ldr	r0, [pc, #176]	; (80008c8 <updateClockBuffer.5987+0x20c>)
+ 8000816:	482c      	ldr	r0, [pc, #176]	; (80008c8 <updateClockBuffer.6003+0x20c>)
  8000818:	f000 fd62 	bl	80012e0 <HAL_GPIO_WritePin>
   	  				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, 0);
  800081c:	2200      	movs	r2, #0
  800081e:	f44f 5180 	mov.w	r1, #4096	; 0x1000
- 8000822:	4829      	ldr	r0, [pc, #164]	; (80008c8 <updateClockBuffer.5987+0x20c>)
+ 8000822:	4829      	ldr	r0, [pc, #164]	; (80008c8 <updateClockBuffer.6003+0x20c>)
  8000824:	f000 fd5c 	bl	80012e0 <HAL_GPIO_WritePin>
   	  				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_11, 1);
  8000828:	2201      	movs	r2, #1
  800082a:	f44f 6100 	mov.w	r1, #2048	; 0x800
- 800082e:	4826      	ldr	r0, [pc, #152]	; (80008c8 <updateClockBuffer.5987+0x20c>)
+ 800082e:	4826      	ldr	r0, [pc, #152]	; (80008c8 <updateClockBuffer.6003+0x20c>)
  8000830:	f000 fd56 	bl	80012e0 <HAL_GPIO_WritePin>
   	  				  state =3;
  8000834:	2303      	movs	r3, #3
  8000836:	6063      	str	r3, [r4, #4]
   	  				  set_Timer1(time_lenght/40);
  8000838:	6823      	ldr	r3, [r4, #0]
- 800083a:	4a21      	ldr	r2, [pc, #132]	; (80008c0 <updateClockBuffer.5987+0x204>)
+ 800083a:	4a21      	ldr	r2, [pc, #132]	; (80008c0 <updateClockBuffer.6003+0x204>)
  800083c:	fb82 1203 	smull	r1, r2, r2, r3
  8000840:	1112      	asrs	r2, r2, #4
  8000842:	17db      	asrs	r3, r3, #31
@@ -950,42 +950,42 @@ int main(void)
  8000846:	4618      	mov	r0, r3
  8000848:	f000 f92e 	bl	8000aa8 <set_Timer1>
   	  			  break;
- 800084c:	e030      	b.n	80008b0 <updateClockBuffer.5987+0x1f4>
+ 800084c:	e030      	b.n	80008b0 <updateClockBuffer.6003+0x1f4>
   	  			  if(timer1_flag ==1)
- 800084e:	4b1d      	ldr	r3, [pc, #116]	; (80008c4 <updateClockBuffer.5987+0x208>)
+ 800084e:	4b1d      	ldr	r3, [pc, #116]	; (80008c4 <updateClockBuffer.6003+0x208>)
  8000850:	681b      	ldr	r3, [r3, #0]
  8000852:	2b01      	cmp	r3, #1
- 8000854:	d12e      	bne.n	80008b4 <updateClockBuffer.5987+0x1f8>
+ 8000854:	d12e      	bne.n	80008b4 <updateClockBuffer.6003+0x1f8>
   	  				  update7SEG(3);
  8000856:	46a4      	mov	ip, r4
  8000858:	2003      	movs	r0, #3
- 800085a:	f7ff fe87 	bl	800056c <update7SEG.5980>
+ 800085a:	f7ff fe87 	bl	800056c <update7SEG.5996>
   	  				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, 1);
  800085e:	2201      	movs	r2, #1
  8000860:	f44f 5100 	mov.w	r1, #8192	; 0x2000
- 8000864:	4818      	ldr	r0, [pc, #96]	; (80008c8 <updateClockBuffer.5987+0x20c>)
+ 8000864:	4818      	ldr	r0, [pc, #96]	; (80008c8 <updateClockBuffer.6003+0x20c>)
  8000866:	f000 fd3b 	bl	80012e0 <HAL_GPIO_WritePin>
   	  				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, 1);
  800086a:	2201      	movs	r2, #1
  800086c:	f44f 4180 	mov.w	r1, #16384	; 0x4000
- 8000870:	4815      	ldr	r0, [pc, #84]	; (80008c8 <updateClockBuffer.5987+0x20c>)
+ 8000870:	4815      	ldr	r0, [pc, #84]	; (80008c8 <updateClockBuffer.6003+0x20c>)
  8000872:	f000 fd35 	bl	80012e0 <HAL_GPIO_WritePin>
   	  				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, 1);
  8000876:	2201      	movs	r2, #1
  8000878:	f44f 5180 	mov.w	r1, #4096	; 0x1000
- 800087c:	4812      	ldr	r0, [pc, #72]	; (80008c8 <updateClockBuffer.5987+0x20c>)
+ 800087c:	4812      	ldr	r0, [pc, #72]	; (80008c8 <updateClockBuffer.6003+0x20c>)
  800087e:	f000 fd2f 	bl	80012e0 <HAL_GPIO_WritePin>
   	  				  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_11, 0);
  8000882:	2200      	movs	r2, #0
  8000884:	f44f 6100 	mov.w	r1, #2048	; 0x800
- 8000888:	480f      	ldr	r0, [pc, #60]	; (80008c8 <updateClockBuffer.5987+0x20c>)
+ 8000888:	480f      	ldr	r0, [pc, #60]	; (80008c8 <updateClockBuffer.6003+0x20c>)
  800088a:	f000 fd29 	bl	80012e0 <HAL_GPIO_WritePin>
   	  				  state =0;
  800088e:	2300      	movs	r3, #0
  8000890:	6063      	str	r3, [r4, #4]
   	  				  set_Timer1(time_lenght/40);
  8000892:	6823      	ldr	r3, [r4, #0]
- 8000894:	4a0a      	ldr	r2, [pc, #40]	; (80008c0 <updateClockBuffer.5987+0x204>)
+ 8000894:	4a0a      	ldr	r2, [pc, #40]	; (80008c0 <updateClockBuffer.6003+0x204>)
  8000896:	fb82 1203 	smull	r1, r2, r2, r3
  800089a:	1112      	asrs	r2, r2, #4
  800089c:	17db      	asrs	r3, r3, #31
@@ -993,16 +993,16 @@ int main(void)
  80008a0:	4618      	mov	r0, r3
  80008a2:	f000 f901 	bl	8000aa8 <set_Timer1>
   	  			  break;
- 80008a6:	e005      	b.n	80008b4 <updateClockBuffer.5987+0x1f8>
+ 80008a6:	e005      	b.n	80008b4 <updateClockBuffer.6003+0x1f8>
   	  			  break;
  80008a8:	bf00      	nop
- 80008aa:	e004      	b.n	80008b6 <updateClockBuffer.5987+0x1fa>
+ 80008aa:	e004      	b.n	80008b6 <updateClockBuffer.6003+0x1fa>
   	  			  break;
  80008ac:	bf00      	nop
- 80008ae:	e002      	b.n	80008b6 <updateClockBuffer.5987+0x1fa>
+ 80008ae:	e002      	b.n	80008b6 <updateClockBuffer.6003+0x1fa>
   	  			  break;
  80008b0:	bf00      	nop
- 80008b2:	e000      	b.n	80008b6 <updateClockBuffer.5987+0x1fa>
+ 80008b2:	e000      	b.n	80008b6 <updateClockBuffer.6003+0x1fa>
   	  			  break;
  80008b4:	bf00      	nop
     }

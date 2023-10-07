@@ -9,6 +9,42 @@
 #define INC_LED7SEGMENT_H_
 
 #include "main.h"
+const int MAX_LED_MATRIX = 8;
+int index_led_matrix = 0;
+uint8_t matrix_buffer[8]={
+		0x01,
+		0x02,
+		0x03,
+		0x04,
+		0x05,
+		0x06,
+		0x07,
+		0x08
+};
+void updateLEDmatrix(int index)
+{
+	switch (index){
+		case 0:
+			break;
+		case 1:
+			break;
+		case 2:
+			break;
+		case 3:
+			break;
+		case 4:
+			break;
+		case 5:
+			break;
+		case 6:
+			break;
+		case 7:
+			break;
+		default:
+			break;
+
+	}
+}
 void display7SEG (int flag,int counter)
 {	if(flag ==0)
 	{
