@@ -53,6 +53,17 @@ void setRow(uint8_t code){
 	  if((code >> 7) & 0x01)
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_14, 1);
   }
+void shiftMatrixBufferRight() {
+    uint8_t lastBit = 0;
+    for (int i = 0; i < MAX_LED_MATRIX; i++) {
+        uint8_t temp = matrix_buffer[i] & 0x01;  // Get the least significant bit
+        matrix_buffer[i] >>= 1;                 // Shift the entire row to the right
+        if (lastBit) {
+            matrix_buffer[i] |= 0x80;          // Set the most significant bit if the last bit was 1
+        }
+        lastBit = temp;
+    }
+}
 
   void updateLEDMatrix(int index_led_matrix){
 	  	clearCols();
@@ -94,6 +105,7 @@ void setRow(uint8_t code){
   		default:
   			break;
   	}
+  	shiftMatrixBufferRight();
 
   }
 

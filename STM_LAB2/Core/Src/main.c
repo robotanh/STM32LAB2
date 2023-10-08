@@ -214,7 +214,7 @@ int main(void)
 	 		 		  if(index_led_matrix >= MAX_LED_MATRIX){
 	 		 			  index_led_matrix = 0;
 	 		 		  }
-	 		 		  set_Timer4(1);
+	 		 		  set_Timer4(10);
 	 		 	  }
 
 
