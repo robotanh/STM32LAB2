@@ -12,7 +12,8 @@
 const int MAX_LED_MATRIX = 8;
 int index_led_matrix = 0;
 uint8_t matrix_buffer[8] = {
-		0x00, 0x3E, 0x48, 0x88, 0x48, 0x3E, 0x00, 0x00
+		0xE7,0xC3,0x99,0x99,0x81,0x81,0x99,0x99
+		//0x18,0x3C,0x66,0x66,0x7E,0x7E,0x66,0x66
 };
 void clearCols(){
 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_9, 0);
@@ -32,7 +33,7 @@ void clearRows(){
 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, 0);
 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, 0);
-	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_15, 0);
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_14, 0);
 }
 void setRow(uint8_t code){
 	  if((code >> 0) & 0x01)
@@ -50,12 +51,13 @@ void setRow(uint8_t code){
 	  if((code >> 6) & 0x01)
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, 1);
 	  if((code >> 7) & 0x01)
-			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_15, 1);
+			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_14, 1);
   }
 
   void updateLEDMatrix(int index_led_matrix){
 	  	clearCols();
   		clearRows();
+  	  	setRow(matrix_buffer[index_led_matrix]);
   	switch(index_led_matrix){
   		case 0:
   			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_9, 1);
@@ -92,7 +94,7 @@ void setRow(uint8_t code){
   		default:
   			break;
   	}
-  	setRow(matrix_buffer[index_led_matrix]);
+
   }
 
 void display7SEG (int flag,int counter)
