@@ -11,6 +11,7 @@
 #include "main.h"
 const int MAX_LED_MATRIX = 8;
 int index_led_matrix = 0;
+int animation =0;
 uint8_t matrix_buffer[8] = {
 		0xE7,0xC3,0x99,0x99,0x81,0x81,0x99,0x99
 		//0x18,0x3C,0x66,0x66,0x7E,0x7E,0x66,0x66
@@ -35,29 +36,29 @@ void clearRows(){
 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, 0);
 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_14, 0);
 }
-void setRow(uint8_t code){
-	  if((code >> 0) & 0x01)
+void setRow(uint8_t code,int animation){
+	  if((code >> (0+animation)) & 0x01)
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, 1);
-	  if((code >> 1) & 0x01)
+	  if((code >> (1+animation)) & 0x01)
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, 1);
-	  if((code >> 2) & 0x01)
+	  if((code >> (2+animation)) & 0x01)
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_3, 1);
-	  if((code >> 3) & 0x01)
+	  if((code >> (3+animation)) & 0x01)
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, 1);
-	  if((code >> 4) & 0x01)
+	  if((code >> (4+animation)) & 0x01)
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-	  if((code >> 5) & 0x01)
+	  if((code >> (5+animation)) & 0x01)
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, 1);
-	  if((code >> 6) & 0x01)
+	  if((code >> (6+animation)) & 0x01)
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, 1);
-	  if((code >> 7) & 0x01)
+	  if((code >> (7+animation)) & 0x01)
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_14, 1);
   }
 
   void updateLEDMatrix(int index_led_matrix){
 	  	clearCols();
   		clearRows();
-  	  	setRow(matrix_buffer[index_led_matrix]);
+  	  	setRow(matrix_buffer[index_led_matrix],animation);
   	switch(index_led_matrix){
   		case 0:
   			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_9, 1);
