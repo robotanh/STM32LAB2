@@ -213,8 +213,10 @@ int main(void)
 	 		 		  updateLEDMatrix(index_led_matrix++);
 	 		 		  if(index_led_matrix >= MAX_LED_MATRIX){
 	 		 			  index_led_matrix = 0;
+	 		 			  animation++;
+	 		 			  if(animation == 8) animation =0;
 	 		 		  }
-	 		 		  set_Timer4(1);
+	 		 		  set_Timer4(10);
 	 		 	  }
 
 
