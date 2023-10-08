@@ -11,10 +11,34 @@
 #include "main.h"
 const int MAX_LED_MATRIX = 8;
 int index_led_matrix = 0;
+int animation =0;
 uint8_t matrix_buffer[8] = {
 		0xE7,0xC3,0x99,0x99,0x81,0x81,0x99,0x99
 		//0x18,0x3C,0x66,0x66,0x7E,0x7E,0x66,0x66
 };
+void shiftMatrixBufferRight() {
+
+    for (int i = 0; i < MAX_LED_MATRIX; i++) { // Get the least significant bit
+        matrix_buffer[i] >>= 1;                 // Shift the entire row to the right
+    }
+    for (int i = 0; i < MAX_LED_MATRIX; i++) { // Get the least significant bit
+        matrix_buffer[i]|= 0x80;                 // Shift the entire row to the right
+    }
+
+    if(animation == 8)
+    	{
+    		animation =0;
+    		matrix_buffer[0] = 0xE7;
+    		matrix_buffer[1] = 0xC3;
+    		matrix_buffer[2] = 0x99;
+    		matrix_buffer[3] = 0x99;
+    		matrix_buffer[4] = 0x81;
+    		matrix_buffer[5] = 0x81;
+    		matrix_buffer[6] = 0x99;
+    		matrix_buffer[7] = 0x99;
+
+    	}
+}
 void clearCols(){
 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_9, 0);
 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_8, 0);
@@ -53,17 +77,6 @@ void setRow(uint8_t code){
 	  if((code >> 7) & 0x01)
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_14, 1);
   }
-void shiftMatrixBufferRight() {
-    uint8_t lastBit = 0;
-    for (int i = 0; i < MAX_LED_MATRIX; i++) {
-        uint8_t temp = matrix_buffer[i] & 0x01;  // Get the least significant bit
-        matrix_buffer[i] >>= 1;                 // Shift the entire row to the right
-        if (lastBit) {
-            matrix_buffer[i] |= 0x80;          // Set the most significant bit if the last bit was 1
-        }
-        lastBit = temp;
-    }
-}
 
   void updateLEDMatrix(int index_led_matrix){
 	  	clearCols();
@@ -105,7 +118,7 @@ void shiftMatrixBufferRight() {
   		default:
   			break;
   	}
-  	shiftMatrixBufferRight();
+
 
   }
 
